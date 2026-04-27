@@ -20,13 +20,15 @@ export default function Signup() {
     password: ""
   });
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
-    if (user) {
+    // Only redirect if user is fully logged in and verified
+    if (user && user.emailVerified) {
       navigate(from, { replace: true });
     }
   }, [user, navigate, from]);
@@ -56,6 +58,7 @@ export default function Signup() {
         throw new Error("Password must be at least 6 characters.");
       }
       await signUpWithEmail(formData.email, formData.password, formData.name);
+      setSuccess(true);
     } catch (err: any) {
       console.error("Signup error caught:", err);
       let message = err.message;
@@ -156,7 +159,27 @@ export default function Signup() {
             </div>
           )}
 
-          <form className="space-y-6" onSubmit={handleSignup}>
+          {success ? (
+            <div className="p-6 rounded-2xl bg-surface border border-outline-variant text-center space-y-4">
+              <div className="w-16 h-16 rounded-full bg-primary/20 text-primary mx-auto flex items-center justify-center mb-4">
+                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-headline font-bold text-on-surface">Verify your email</h3>
+              <p className="text-sm text-on-surface-variant">
+                We've sent a verification link to <span className="font-bold text-on-surface">{formData.email}</span>. 
+                Please check your inbox and verify your email to continue.
+              </p>
+              <Link 
+                to="/login"
+                className="mt-6 inline-flex h-12 w-full items-center justify-center rounded-xl bg-surface-container-high font-bold text-sm hover:bg-surface-container-highest transition-colors"
+              >
+                Go to Login
+              </Link>
+            </div>
+          ) : (
+            <form className="space-y-6" onSubmit={handleSignup}>
             <div className="space-y-4">
               <div className="space-y-2">
                 <label className="text-[10px] uppercase font-black tracking-widest text-on-surface-variant opacity-70">Full Name</label>
@@ -210,6 +233,7 @@ export default function Signup() {
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
           </form>
+          )}
 
           <footer className="space-y-8">
             <div className="flex items-center gap-4 before:h-px before:flex-1 before:bg-white/5 after:h-px after:flex-1 after:bg-white/5">

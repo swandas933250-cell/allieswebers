@@ -6,7 +6,8 @@ import {
   signOut,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  updateProfile
+  updateProfile,
+  sendEmailVerification
 } from 'firebase/auth';
 import { auth, googleProvider } from '../lib/firebase';
 
@@ -30,9 +31,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const isAdmin = user?.email ? ADMIN_EMAILS.some(email => email.toLowerCase() === user.email?.toLowerCase()) : false;
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-      setLoading(false);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      // If the user hasn't verified their email, do not set them as the active user.
+      if (currentUser && !currentUser.emailVerified) {
+        await signOut(auth);
+        setUser(null);
+        setLoading(false);
+      } else {
+        setUser(currentUser);
+        setLoading(false);
+      }
     });
     return unsubscribe;
   }, []);
@@ -62,8 +70,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           // Continue anyway since account is created
         }
         
+        await sendEmailVerification(result.user);
+        await signOut(auth);
+        
         // Force a re-fetch of the user object to sync the displayName to the local state
-        setUser({ ...auth.currentUser } as User);
+        setUser(null);
       }
     } catch (error: any) {
       console.error("Signup failed with error code:", error.code);
@@ -74,7 +85,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signInWithEmail = async (email: string, password: string) => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const result = await signInWithEmailAndPassword(auth, email, password);
+      if (result.user && !result.user.emailVerified) {
+        await signOut(auth);
+        throw new Error('Please verify your email before logging in.');
+      }
     } catch (error) {
       console.error("Sign-in failed", error);
       throw error;
