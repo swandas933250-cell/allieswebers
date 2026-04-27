@@ -11,7 +11,6 @@ import Home from "./pages/Home";
 import Templates from "./pages/Templates";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
 import RequestForm from "./pages/RequestForm";
 import AdminPortal from "./pages/AdminPortal";
 import Contact from "./pages/Contact";
@@ -89,7 +88,7 @@ function ScrollToTop() {
 
 function Layout() {
   const location = useLocation();
-  const hideNavFooter = ["/login", "/signup", "/request"].includes(location.pathname);
+  const hideNavFooter = ["/login", "/request"].includes(location.pathname);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -105,7 +104,6 @@ function Layout() {
             </ProtectedRoute>
           } />
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
           <Route path="/admin" element={
             <AdminProtectedRoute>
               <AdminPortal />
