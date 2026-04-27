@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+@theme {
+  --font-headline: "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
+
+  --color-primary: #7C4DFF;
+  --color-secondary: #00E676;
+  --color-tertiary: #FFAB40;
+  
+  --color-background: #0F1115;
+  --color-surface: #1A1D23;
+  --color-surface-dim: #08090C;
+  --color-surface-container: #1A1D23;
+  --color-surface-container-lowest: #08090C;
+  --color-surface-container-low: #0F1115;
+  --color-surface-container-high: #242831;
+  --color-surface-container-highest: #2D313A;
+  --color-surface-bright: #363B46;
+  --color-surface-variant: #2D313A;
+  
+  --color-on-surface: #E2E4E9;
+  --color-on-surface-variant: #9499A1;
+  
+  --color-outline-variant: #2D313A;
+
+  --radius-md: 12px;
+  --radius-xl: 16px;
+
+  --animate-shake: shake 0.5s linear;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+@layer base {
+  body {
+    @apply bg-background text-on-surface font-body antialiased transition-colors duration-300;
+  }
+}
+
+:root.light {
+  --color-primary: #6366f1;
+  --color-secondary: #22c55e;
+  --color-tertiary: #f59e0b;
+  
+  --color-background: #ffffff;
+  --color-surface: #f8fafc;
+  --color-surface-dim: #f1f5f9;
+  --color-surface-container: #ffffff;
+  --color-surface-container-lowest: #f8fafc;
+  --color-surface-container-low: #f1f5f9;
+  --color-surface-container-high: #e2e8f0;
+  --color-surface-container-highest: #cbd5e1;
+  --color-surface-bright: #ffffff;
+  --color-surface-variant: #f1f5f9;
+  
+  --color-on-surface: #0f172a;
+  --color-on-surface-variant: #64748b;
+  
+  --color-outline-variant: #e2e8f0;
+}
+
+.bg-ethereal-gradient {
+  background: linear-gradient(135deg, rgba(124, 77, 255, 0.1) 0%, rgba(0, 230, 118, 0.05) 100%);
+}
+
+.btn-primary-glow {
+  box-shadow: 0 4px 14px 0 rgba(124, 77, 255, 0.39);
+}
+
+.btn-primary-glow:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 6px 20px rgba(124, 77, 255, 0.23);
+}
+
+.glass-panel {
+  @apply bg-surface/80 backdrop-blur-xl border border-outline-variant;
+}
+
+.input-soft {
+  @apply bg-surface-container-lowest border border-outline-variant transition-all duration-300;
+}
+
+.input-soft:focus {
+  @apply bg-surface-container-high border-primary outline-none ring-1 ring-primary/50;
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
+}
