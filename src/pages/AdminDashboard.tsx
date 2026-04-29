@@ -209,7 +209,7 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto hidden md:block">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-surface-container-low border-b border-white/5">
@@ -317,6 +317,123 @@ export default function AdminDashboard() {
               )}
             </tbody>
           </table>
+        </div>
+
+        {/* Mobile View: Cards Layout */}
+        <div className="md:hidden divide-y divide-white/5">
+          <AnimatePresence>
+            {filteredRequests.map((req) => (
+              <motion.div 
+                key={req.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="p-6 space-y-6"
+              >
+                {/* Header: User Info & Status */}
+                <div className="flex justify-between items-start">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-surface-container-high border border-white/10 flex items-center justify-center text-primary font-bold">
+                      {req.userName?.[0] || "?"}
+                    </div>
+                    <div>
+                      <p className="font-bold text-on-surface leading-tight">{req.userName}</p>
+                      <p className="text-xs text-on-surface-variant opacity-60">{req.userEmail}</p>
+                    </div>
+                  </div>
+                  <div className={`px-3 py-1 rounded-full border text-[10px] font-black uppercase tracking-widest ${getStatusStyle(req.status)}`}>
+                    {req.status}
+                  </div>
+                </div>
+
+                {/* Body: Mission Info */}
+                <div className="grid grid-cols-2 gap-4 bg-surface-container-low p-4 rounded-xl border border-white/5">
+                  <div>
+                    <p className="text-[10px] uppercase font-black tracking-widest text-on-surface-variant opacity-40 mb-1">Mission</p>
+                    <p className="text-sm font-bold text-on-surface capitalize truncate">{req.businessType}</p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] uppercase font-black tracking-widest text-on-surface-variant opacity-40 mb-1">Style</p>
+                    <p className="text-sm font-bold text-on-surface capitalize truncate">{req.aesthetic || "Normal"}</p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] uppercase font-black tracking-widest text-on-surface-variant opacity-40 mb-1">Timeline</p>
+                    <p className="text-xs font-mono text-on-surface-variant">{req.createdAt?.toDate().toLocaleDateString()}</p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] uppercase font-black tracking-widest text-on-surface-variant opacity-40 mb-1">Mobile</p>
+                    <p className="text-xs font-mono text-on-surface-variant">{req.mobile}</p>
+                  </div>
+                </div>
+
+                {/* Actions: Dedicated Touch Buttons */}
+                <div className="space-y-4">
+                  <p className="text-[10px] uppercase font-black tracking-widest text-center text-on-surface-variant opacity-50">Quick Missions Control</p>
+                  
+                  <div className="grid grid-cols-3 gap-2">
+                    <button 
+                      onClick={() => handleStatusUpdate(req.id, 'approved')}
+                      disabled={updatingId === req.id || req.status === 'approved'}
+                      className={`flex flex-col items-center justify-center gap-2 p-3 rounded-xl border transition-all active:scale-95 ${req.status === 'approved' ? 'bg-secondary/20 border-secondary text-secondary' : 'bg-surface-container-high border-white/5 text-on-surface-variant'}`}
+                    >
+                      <CheckCircle2 className="w-5 h-5" />
+                      <span className="text-[8px] font-black uppercase tracking-widest">Approve</span>
+                    </button>
+                    
+                    <button 
+                      onClick={() => handleStatusUpdate(req.id, 'in progress')}
+                      disabled={updatingId === req.id || req.status === 'in progress'}
+                      className={`flex flex-col items-center justify-center gap-2 p-3 rounded-xl border transition-all active:scale-95 ${req.status === 'in progress' ? 'bg-primary/20 border-primary text-primary' : 'bg-surface-container-high border-white/5 text-on-surface-variant'}`}
+                    >
+                      <TrendingUp className="w-5 h-5" />
+                      <span className="text-[8px] font-black uppercase tracking-widest">Deploy</span>
+                    </button>
+
+                    <button 
+                      onClick={() => handleStatusUpdate(req.id, 'completed')}
+                      disabled={updatingId === req.id || req.status === 'completed'}
+                      className={`flex flex-col items-center justify-center gap-2 p-3 rounded-xl border transition-all active:scale-95 ${req.status === 'completed' ? 'bg-emerald-500/20 border-emerald-500 text-emerald-500' : 'bg-surface-container-high border-white/5 text-on-surface-variant'}`}
+                    >
+                      <ShieldCheck className="w-5 h-5" />
+                      <span className="text-[8px] font-black uppercase tracking-widest">Mastered</span>
+                    </button>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <a 
+                      href={`mailto:${req.userEmail}`}
+                      className="flex items-center justify-center gap-3 p-4 rounded-xl bg-surface-container-highest border border-white/10 text-on-surface font-bold text-sm active:scale-95 transition-all"
+                    >
+                      <Mail className="w-4 h-4 text-primary" />
+                      Contact User
+                    </a>
+                    <button 
+                      onClick={() => handleStatusUpdate(req.id, 'rejected')}
+                      disabled={updatingId === req.id || req.status === 'rejected'}
+                      className="flex items-center justify-center gap-3 p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-500 font-bold text-sm active:scale-95 transition-all"
+                    >
+                      <XCircle className="w-4 h-4" />
+                      Abort
+                    </button>
+                  </div>
+                </div>
+
+                {updatingId === req.id && (
+                  <div className="flex items-center justify-center gap-3 text-primary animate-pulse">
+                    <RefreshCw className="w-4 h-4 animate-spin" />
+                    <span className="text-[10px] font-black uppercase tracking-[2px]">Updating Satellite Link...</span>
+                  </div>
+                )}
+              </motion.div>
+            ))}
+          </AnimatePresence>
+
+          {filteredRequests.length === 0 && !loading && (
+            <div className="p-20 text-center flex flex-col items-center gap-4 opacity-30">
+              <Search className="w-12 h-12" />
+              <p className="font-bold text-xl uppercase tracking-widest">No transmissions</p>
+            </div>
+          )}
         </div>
       </section>
     </div>

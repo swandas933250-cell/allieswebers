@@ -19,7 +19,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const ADMIN_EMAILS = ["allieswebers@gmail.com"];
+export const ADMIN_EMAILS = ["allieswebers@gmail.com", "swandas933250@gmail.com"];
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -37,16 +37,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const loginWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
+      const isNewUser = getAdditionalUserInfo(result)?.isNewUser;
       
-      // If it's a new user or just to satisfy the request, send the verification email template
-      // Note: Google users are usually verified, but this triggers the template defined in Firebase Console.
+      console.log("Login successful. Is new user:", isNewUser);
+
       if (result.user) {
+        // We try to send the email verification which uses the template in Firebase Console
+        // Note: For Google accounts, user.emailVerified is usually true by default.
+        // If the user wants to trigger the template, we call it here.
         try {
           await sendEmailVerification(result.user);
-          console.log("Verification email sent based on Firebase template.");
-        } catch (emailError) {
-          // If already verified or other limit, Firebase might throw
-          console.warn("Could not send verification email (they might already be verified):", emailError);
+          console.log("Verification email triggered successfully.");
+        } catch (emailError: any) {
+          console.warn("Firebase could not send the email template. Reason:", emailError.message);
+          // If the email is already verified, Firebase might skip sending the email 
+          // depending on the project's security settings.
         }
       }
     } catch (error) {
