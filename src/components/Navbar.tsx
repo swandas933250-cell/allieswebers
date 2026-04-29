@@ -5,7 +5,7 @@
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
-import { Sun, Moon, Layout, ChevronLeft, LogOut, User as UserIcon, ShieldCheck } from "lucide-react";
+import { Layout, ChevronLeft, LogOut, User as UserIcon, ShieldCheck } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 
@@ -14,7 +14,6 @@ export default function Navbar() {
   const navigate = useNavigate();
   const { user, isAdmin, logout } = useAuth();
   const [scrolled, setScrolled] = useState(false);
-  const [theme, setTheme] = useState("dark");
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const isHome = location.pathname === "/";
 
@@ -39,15 +38,7 @@ export default function Navbar() {
     return () => window.removeEventListener('click', handleClickOutside);
   }, [showProfileMenu]);
 
-  const toggleTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    setTheme(newTheme);
-    if (newTheme === "light") {
-      document.documentElement.classList.add("light");
-    } else {
-      document.documentElement.classList.remove("light");
-    }
-  };
+
 
   const navLinks = [
     { name: "Home", path: "/" },
@@ -106,17 +97,7 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-2 sm:gap-4">
-          <button 
-            onClick={toggleTheme}
-            className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-surface-container-high/50 hover:bg-surface-container-high transition-all text-on-surface-variant hover:text-primary active:scale-90"
-            title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
-          >
-            {theme === "dark" ? (
-              <Moon className="w-4 h-4 sm:w-5 sm:h-5" />
-            ) : (
-              <Sun className="w-4 h-4 sm:w-5 sm:h-5" />
-            )}
-          </button>
+
           
           {user ? (
             <div className="flex items-center gap-3">
