@@ -43,6 +43,7 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Categories", path: "/templates" },
+    { name: "Pricing", path: "/pricing" },
     { name: "Dashboard", path: "/dashboard" },
     ...(isAdmin ? [{ name: "Admin", path: "/admin" }] : []),
     { name: "Contact", path: "/contact" },
@@ -155,12 +156,20 @@ export default function Navbar() {
               </div>
             </div>
           ) : (
-            <Link
-              to="/login"
-              className="bg-primary text-background px-5 py-2 sm:px-6 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold shadow-lg shadow-primary/20 hover:opacity-90 transition-all active:scale-95 whitespace-nowrap btn-primary-glow"
-            >
-              Login
-            </Link>
+            <div className="flex items-center gap-2 sm:gap-4">
+              <Link
+                to="/pricing"
+                className="hidden sm:flex bg-on-surface text-background px-5 py-2 sm:px-6 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold shadow-lg transition-all active:scale-95 whitespace-nowrap"
+              >
+                Get Started
+              </Link>
+              <Link
+                to="/login"
+                className="bg-primary text-background px-5 py-2 sm:px-6 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold shadow-lg shadow-primary/20 hover:opacity-90 transition-all active:scale-95 whitespace-nowrap btn-primary-glow"
+              >
+                Login
+              </Link>
+            </div>
           )}
         </div>
       </div>

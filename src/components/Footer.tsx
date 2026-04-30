@@ -29,6 +29,7 @@ export default function Footer() {
         <nav className="flex flex-wrap justify-start md:justify-center gap-x-8 gap-y-4">
           <Link to="/terms-of-service" className="p-0 text-xs font-semibold text-on-surface-variant hover:text-primary transition-colors">Terms of Service</Link>
           <Link to="/privacy-policy" className="p-0 text-xs font-semibold text-on-surface-variant hover:text-primary transition-colors">Privacy Policy</Link>
+          <Link to="/pricing" className="p-0 text-xs font-semibold text-on-surface-variant hover:text-primary transition-colors">Pricing</Link>
           <Link to="/contact" className="p-0 text-xs font-semibold text-on-surface-variant hover:text-primary transition-colors">Contact</Link>
         </nav>
         

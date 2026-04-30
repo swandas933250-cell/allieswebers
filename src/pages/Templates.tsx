@@ -267,7 +267,6 @@ export default function Templates() {
               )}
             </AnimatePresence>
           </div>
-
         </div>
       </div>
     </div>

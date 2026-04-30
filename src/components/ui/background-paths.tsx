@@ -109,52 +109,65 @@ export function BackgroundPaths({
                 </motion.div>
             </div>
 
-            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4 w-full px-4">
-                        <div id="poda" className="relative flex items-center justify-center group">
-                            <div className="absolute z-[-1] overflow-hidden h-full w-full max-h-[70px] max-w-[314px] rounded-xl blur-[3px] 
-                                            before:absolute before:content-[''] before:z-[-2] before:w-[999px] before:h-[999px] before:bg-no-repeat before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:rotate-60
-                                            before:bg-[conic-gradient(#000,#402fb5_5%,#000_38%,#000_50%,#cf30aa_60%,#000_87%)] before:transition-all before:duration-2000
-                                            group-hover:before:rotate-[-120deg] group-focus-within:before:rotate-[420deg] group-focus-within:before:duration-[4000ms]">
-                            </div>
-                            <div className="absolute z-[-1] overflow-hidden h-full w-full max-h-[65px] max-w-[312px] rounded-xl blur-[3px] 
-                                            before:absolute before:content-[''] before:z-[-2] before:w-[600px] before:h-[600px] before:bg-no-repeat before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:rotate-[82deg]
-                                            before:bg-[conic-gradient(rgba(0,0,0,0),#18116a,rgba(0,0,0,0)_10%,rgba(0,0,0,0)_50%,#6e1b60,rgba(0,0,0,0)_60%)] before:transition-all before:duration-2000
-                                            group-hover:before:rotate-[-98deg] group-focus-within:before:rotate-[442deg] group-focus-within:before:duration-[4000ms]">
-                            </div>
-                            <div className="absolute z-[-1] overflow-hidden h-full w-full max-h-[63px] max-w-[307px] rounded-lg blur-[2px] 
-                                            before:absolute before:content-[''] before:z-[-2] before:w-[600px] before:h-[600px] before:bg-no-repeat before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:rotate-[83deg]
-                                            before:bg-[conic-gradient(rgba(0,0,0,0)_0%,#a099d8,rgba(0,0,0,0)_8%,rgba(0,0,0,0)_50%,#dfa2da,rgba(0,0,0,0)_58%)] before:brightness-140
-                                            before:transition-all before:duration-2000 group-hover:before:rotate-[-97deg] group-focus-within:before:rotate-[443deg] group-focus-within:before:duration-[4000ms]">
-                            </div>
-                            <div className="absolute z-[-1] overflow-hidden h-full w-full max-h-[59px] max-w-[303px] rounded-xl blur-[0.5px] 
-                                            before:absolute before:content-[''] before:z-[-2] before:w-[600px] before:h-[600px] before:bg-no-repeat before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:rotate-70
-                                            before:bg-[conic-gradient(#1c191c,#402fb5_5%,#1c191c_14%,#1c191c_50%,#cf30aa_60%,#1c191c_64%)] before:brightness-130
-                                            before:transition-all before:duration-2000 group-hover:before:rotate-[-110deg] group-focus-within:before:rotate-[430deg] group-focus-within:before:duration-[4000ms]">
+            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-6 w-full px-4">
+                        <div className="flex flex-col md:flex-row gap-4 items-center justify-center w-full">
+                            <div id="poda" className="relative flex items-center justify-center group">
+                                <div className="absolute z-[-1] overflow-hidden h-full w-full max-h-[70px] max-w-[314px] rounded-xl blur-[3px] 
+                                                before:absolute before:content-[''] before:z-[-2] before:w-[999px] before:h-[999px] before:bg-no-repeat before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:rotate-60
+                                                before:bg-[conic-gradient(#000,#402fb5_5%,#000_38%,#000_50%,#cf30aa_60%,#000_87%)] before:transition-all before:duration-2000
+                                                group-hover:before:rotate-[-120deg] group-focus-within:before:rotate-[420deg] group-focus-within:before:duration-[4000ms]">
+                                </div>
+                                <div className="absolute z-[-1] overflow-hidden h-full w-full max-h-[65px] max-w-[312px] rounded-xl blur-[3px] 
+                                                before:absolute before:content-[''] before:z-[-2] before:w-[600px] before:h-[600px] before:bg-no-repeat before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:rotate-[82deg]
+                                                before:bg-[conic-gradient(rgba(0,0,0,0),#18116a,rgba(0,0,0,0)_10%,rgba(0,0,0,0)_50%,#6e1b60,rgba(0,0,0,0)_60%)] before:transition-all before:duration-2000
+                                                group-hover:before:rotate-[-98deg] group-focus-within:before:rotate-[442deg] group-focus-within:before:duration-[4000ms]">
+                                </div>
+                                <div className="absolute z-[-1] overflow-hidden h-full w-full max-h-[63px] max-w-[307px] rounded-lg blur-[2px] 
+                                                before:absolute before:content-[''] before:z-[-2] before:w-[600px] before:h-[600px] before:bg-no-repeat before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:rotate-[83deg]
+                                                before:bg-[conic-gradient(rgba(0,0,0,0)_0%,#a099d8,rgba(0,0,0,0)_8%,rgba(0,0,0,0)_50%,#dfa2da,rgba(0,0,0,0)_58%)] before:brightness-140
+                                                before:transition-all before:duration-2000 group-hover:before:rotate-[-97deg] group-focus-within:before:rotate-[443deg] group-focus-within:before:duration-[4000ms]">
+                                </div>
+                                <div className="absolute z-[-1] overflow-hidden h-full w-full max-h-[59px] max-w-[303px] rounded-xl blur-[0.5px] 
+                                                before:absolute before:content-[''] before:z-[-2] before:w-[600px] before:h-[600px] before:bg-no-repeat before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:rotate-70
+                                                before:bg-[conic-gradient(#1c191c,#402fb5_5%,#1c191c_14%,#1c191c_50%,#cf30aa_60%,#1c191c_64%)] before:brightness-130
+                                                before:transition-all before:duration-2000 group-hover:before:rotate-[-110deg] group-focus-within:before:rotate-[430deg] group-focus-within:before:duration-[4000ms]">
+                                </div>
+
+                                <Link to={buttonHref} className="relative z-10 block">
+                                    <Button
+                                        variant="ghost"
+                                        className="rounded-[1.15rem] px-8 py-6 text-lg font-semibold backdrop-blur-md 
+                                        bg-black hover:bg-black/90 text-white transition-all duration-300 
+                                        group-hover:-translate-y-0.5 border border-white/10
+                                        hover:shadow-md dark:hover:shadow-neutral-800/50 min-w-[240px]"
+                                    >
+                                        <span className="opacity-90 group-hover:opacity-100 transition-opacity">
+                                            {buttonText}
+                                        </span>
+                                        <span
+                                            className="ml-3 opacity-70 group-hover:opacity-100 group-hover:translate-x-1.5 
+                                            transition-all duration-300"
+                                        >
+                                            →
+                                        </span>
+                                    </Button>
+                                </Link>
                             </div>
 
-                            <Link to={buttonHref} className="relative z-10 block">
+                            <Link to="/pricing" className="relative z-10 block">
                                 <Button
-                                    variant="ghost"
+                                    variant="outline"
                                     className="rounded-[1.15rem] px-8 py-6 text-lg font-semibold backdrop-blur-md 
-                                    bg-black hover:bg-black/90 text-white transition-all duration-300 
-                                    group-hover:-translate-y-0.5 border border-white/10
-                                    hover:shadow-md dark:hover:shadow-neutral-800/50 min-w-[301px]"
+                                    bg-white/5 dark:bg-transparent hover:bg-white/10 text-neutral-900 dark:text-white transition-all duration-300 
+                                    border border-neutral-300 dark:border-white/20 min-w-[240px]"
                                 >
-                                    <span className="opacity-90 group-hover:opacity-100 transition-opacity">
-                                        {buttonText}
-                                    </span>
-                                    <span
-                                        className="ml-3 opacity-70 group-hover:opacity-100 group-hover:translate-x-1.5 
-                                        transition-all duration-300"
-                                    >
-                                        →
-                                    </span>
+                                    View Pricing
                                 </Button>
                             </Link>
                         </div>
 
                         {/* Mobile view only button */}
-                        <div className="md:hidden">
+                        <div className="md:hidden flex flex-col gap-3">
                             <Link to="/templates">
                                 <Button
                                     variant="outline"

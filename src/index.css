@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@layer base {
+  html, body {
+    @apply overflow-x-hidden;
+  }
+}
+
 @theme {
   --font-headline: "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
   --font-body: "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
