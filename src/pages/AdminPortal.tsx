@@ -21,7 +21,8 @@ import {
   Loader2,
   ArrowUpRight,
   TrendingUp,
-  Layout
+  Layout,
+  RefreshCw
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Navigate, Link, useNavigate } from "react-router-dom";
@@ -400,7 +401,7 @@ export default function AdminPortal() {
                           layout
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
-                          className="group hover:bg-surface-container/20 transition-all"
+                          className="group border-b border-white/5 transition-all"
                         >
                           <td className="p-6">
                             <div className="space-y-1">
@@ -457,9 +458,9 @@ export default function AdminPortal() {
                             </div>
                           </td>
                           <td className="p-6 text-right">
-                            <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all">
+                            <div className="flex items-center justify-end gap-2 opacity-100 transition-all">
                               <div className="relative group/menu">
-                                <button className="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high border border-white/5 transition-all text-on-surface-variant hover:text-on-surface">
+                                <button className="p-2 rounded-lg bg-surface-container border border-white/5 transition-all text-on-surface-variant">
                                   <ChevronRight className="w-4 h-4" />
                                 </button>
                                 
@@ -505,6 +506,19 @@ export default function AdminPortal() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="fixed bottom-8 right-8 z-[100] md:hidden">
+        <motion.button
+          whileTap={{ scale: 0.95 }}
+          onClick={() => {
+            setLoading(true);
+            window.location.reload();
+          }}
+          className="w-16 h-16 rounded-full bg-primary text-background shadow-2xl flex items-center justify-center border-4 border-background group"
+        >
+          <RefreshCw className={`w-8 h-8 ${loading ? 'animate-spin' : ''}`} />
+        </motion.button>
       </div>
     </div>
   );

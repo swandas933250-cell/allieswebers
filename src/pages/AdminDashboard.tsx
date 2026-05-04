@@ -147,7 +147,7 @@ export default function AdminDashboard() {
         <div className="flex gap-4">
           <button 
             onClick={fetchRequests}
-            className="p-3 rounded-xl bg-surface border border-outline-variant hover:bg-surface-container transition-all text-on-surface-variant active:scale-95"
+            className="p-3 rounded-xl bg-surface border border-outline-variant transition-all text-on-surface-variant active:scale-95"
             title="Refresh Requests"
           >
             <RefreshCw className={`w-5 h-5 ${loading ? "animate-spin" : ""}`} />
@@ -216,8 +216,7 @@ export default function AdminDashboard() {
                 <th className="p-6 text-[10px] uppercase font-black tracking-widest text-on-surface-variant opacity-50">Identity</th>
                 <th className="p-6 text-[10px] uppercase font-black tracking-widest text-on-surface-variant opacity-50">Mission Path</th>
                 <th className="p-6 text-[10px] uppercase font-black tracking-widest text-on-surface-variant opacity-50">Timeline</th>
-                <th className="p-6 text-[10px] uppercase font-black tracking-widest text-on-surface-variant opacity-50">Status Control</th>
-                <th className="p-6 text-[10px] uppercase font-black tracking-widest text-on-surface-variant opacity-50">Actions</th>
+                <th className="p-6 text-[10px] uppercase font-black tracking-widest text-on-surface-variant opacity-50 text-right">Command & Control</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
@@ -228,7 +227,7 @@ export default function AdminDashboard() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="hover:bg-surface-container-lowest transition-colors group"
+                    className="border-b border-white/5"
                   >
                     <td className="p-6">
                       <div className="flex items-center gap-4">
@@ -236,7 +235,12 @@ export default function AdminDashboard() {
                           {req.userName?.[0] || "?"}
                         </div>
                         <div>
-                          <p className="font-bold text-on-surface leading-tight">{req.userName}</p>
+                          <div className="flex items-center gap-2">
+                             <p className="font-bold text-on-surface leading-tight">{req.userName}</p>
+                             <span className={`px-2 py-0.5 rounded-full border text-[8px] font-black uppercase tracking-widest ${getStatusStyle(req.status)}`}>
+                               {req.status}
+                             </span>
+                          </div>
                           <div className="flex items-center gap-2 mt-1">
                             <Mail className="w-3 h-3 text-on-surface-variant opacity-40" />
                             <span className="text-xs text-on-surface-variant truncate max-w-[150px]">{req.userEmail}</span>
@@ -266,39 +270,49 @@ export default function AdminDashboard() {
                         </div>
                       </div>
                     </td>
-                    <td className="p-6">
-                      <div className="relative inline-block w-full">
-                        <select 
-                          value={req.status}
-                          disabled={updatingId === req.id}
-                          onChange={(e) => handleStatusUpdate(req.id, e.target.value)}
-                          className={`w-full h-10 pl-4 pr-10 rounded-lg border text-[10px] font-black uppercase tracking-widest appearance-none cursor-pointer transition-all outline-none ${getStatusStyle(req.status)} ${updatingId === req.id ? "opacity-50" : ""}`}
-                        >
-                          <option value="pending">Pending</option>
-                          <option value="approved">Approved</option>
-                          <option value="in progress">In Progress</option>
-                          <option value="completed">Completed</option>
-                          <option value="rejected">Rejected</option>
-                        </select>
-                        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                          {updatingId === req.id ? (
-                            <RefreshCw className="w-3 h-3 animate-spin opacity-50" />
-                          ) : (
-                            <ChevronDown className="w-3 h-3 opacity-50" />
-                          )}
-                        </div>
-                      </div>
-                    </td>
                     <td className="p-6 text-right">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center justify-end gap-2">
+                        {/* Status Toggle Buttons */}
+                        <div className="flex items-center gap-1 bg-surface-container-highest p-1 rounded-xl border border-white/5 mr-2">
+                          <button 
+                            onClick={() => handleStatusUpdate(req.id, 'approved')}
+                            disabled={updatingId === req.id || req.status === 'approved'}
+                            className={`p-2 rounded-lg transition-all active:scale-90 ${req.status === 'approved' ? 'bg-secondary text-background shadow-lg shadow-secondary/20' : 'bg-transparent text-on-surface-variant'}`}
+                            title="Approve Mission"
+                          >
+                            <CheckCircle2 className="w-4 h-4" />
+                          </button>
+                          <button 
+                            onClick={() => handleStatusUpdate(req.id, 'in progress')}
+                            disabled={updatingId === req.id || req.status === 'in progress'}
+                            className={`p-2 rounded-lg transition-all active:scale-90 ${req.status === 'in progress' ? 'bg-primary text-background shadow-lg shadow-primary/20' : 'bg-transparent text-on-surface-variant'}`}
+                            title="Deploy Mission"
+                          >
+                            <TrendingUp className="w-4 h-4" />
+                          </button>
+                          <button 
+                            onClick={() => handleStatusUpdate(req.id, 'completed')}
+                            disabled={updatingId === req.id || req.status === 'completed'}
+                            className={`p-2 rounded-lg transition-all active:scale-90 ${req.status === 'completed' ? 'bg-emerald-500 text-background shadow-lg shadow-emerald-500/20' : 'bg-transparent text-on-surface-variant'}`}
+                            title="Master Mission"
+                          >
+                            <ShieldCheck className="w-4 h-4" />
+                          </button>
+                        </div>
+
+                        {/* Standard Actions */}
+                        <button className="p-2 rounded-lg bg-surface-container-high border border-white/5 text-on-surface-variant transition-all active:scale-90" title="View Details">
+                          <ExternalLink className="w-4 h-4" />
+                        </button>
                         <a 
                           href={`mailto:${req.userEmail}?subject=Regarding your ${req.businessType} project request`}
-                          className="p-2 rounded-lg bg-surface-container-high border border-white/5 text-on-surface-variant hover:text-primary transition-all active:scale-90"
+                          className="p-2 rounded-lg bg-surface-container-high border border-white/5 text-on-surface-variant transition-all active:scale-90"
+                          title="Send Email"
                         >
                           <Mail className="w-4 h-4" />
                         </a>
-                        <button className="p-2 rounded-lg bg-surface-container-high border border-white/5 text-on-surface-variant hover:text-secondary transition-all active:scale-90">
-                          <MoreHorizontal className="w-4 h-4" />
+                        <button className="p-2 rounded-lg bg-surface-container-high border border-white/5 text-on-surface-variant transition-all active:scale-90" title="Reject">
+                          <XCircle className="w-4 h-4 text-rose-500" onClick={() => handleStatusUpdate(req.id, 'rejected')} />
                         </button>
                       </div>
                     </td>
@@ -307,7 +321,7 @@ export default function AdminDashboard() {
               </AnimatePresence>
               {filteredRequests.length === 0 && !loading && (
                 <tr>
-                  <td colSpan={5} className="p-20 text-center">
+                  <td colSpan={4} className="p-20 text-center">
                     <div className="flex flex-col items-center gap-4 opacity-30">
                       <Search className="w-12 h-12" />
                       <p className="font-bold text-xl uppercase tracking-widest">No transmissions found</p>
@@ -436,6 +450,20 @@ export default function AdminDashboard() {
           )}
         </div>
       </section>
+      
+      {/* Persistent Mobile Floating Action Button */}
+      <div className="fixed bottom-8 right-8 z-[100] md:hidden">
+        <motion.button
+          whileTap={{ scale: 0.95 }}
+          onClick={() => {
+            setLoading(true);
+            fetchRequests();
+          }}
+          className="w-16 h-16 rounded-full bg-primary text-background shadow-2xl flex items-center justify-center border-4 border-background group"
+        >
+          <RefreshCw className={`w-8 h-8 ${loading ? 'animate-spin' : ''}`} />
+        </motion.button>
+      </div>
     </div>
   );
 }

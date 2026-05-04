@@ -286,7 +286,7 @@ export default function RequestForm() {
                       if (fieldErrors.mobile) setFieldErrors(prev => ({...prev, mobile: false}));
                     }}
                     maxLength={formData.countryCode === "+91" ? 10 : undefined}
-                    placeholder="98765 43210"
+                    placeholder="XXXXX XXXXX"
                     className="flex-grow w-full min-w-0 h-12 px-5 bg-transparent border-transparent outline-none group-focus-within:bg-surface-container-high text-sm font-bold transition-colors border-l border-white/5"
                   />
                 </div>
