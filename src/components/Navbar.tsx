@@ -70,9 +70,17 @@ export default function Navbar() {
           )}
           <Link
             to="/"
-            className="flex items-center gap-2 text-xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary transition-transform active:scale-95"
+            className="flex items-center gap-3 text-xl font-extrabold transition-transform active:scale-95 group"
           >
-            Allieswebers
+            <img 
+              src="https://drive.google.com/thumbnail?id=1s2NVimzBWWg0VYswOLYK9fn6BtnFzHkg&sz=w256" 
+              alt="Allieswebers Logo" 
+              className="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-300"
+              referrerPolicy="no-referrer"
+            />
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-on-surface to-secondary">
+              Allieswebers
+            </span>
           </Link>
           <div className="hidden md:flex gap-8 items-center">
             {navLinks.map((link) => (
